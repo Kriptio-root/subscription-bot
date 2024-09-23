@@ -1,0 +1,21 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  userName         String   @id @map("_id")
+  chatID           BigInt
+  location         Location
+  notificationTime String
+  userTimeZone     String
+}
+
+type Location {
+  latitude  Float
+  longitude Float
+}

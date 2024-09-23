@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> Bot: Subscribtion request
+Bot -> Bot: Check if user exists in temporary list
+alt User is not in temporary list
+    Bot -> Bot: Add user to temporary list
+    Bot -> DB: Check if user exists
+    alt User is not exist
+    DB --> Bot: User does not exist
+    Bot -> User: Subscribtion request accepted - provide location
+    User -> Bot: Location
+    Bot -> User: location accepted - provide time for schedule
+    User -> Bot: Time
+    Bot -> DB: Add user to DB
+    DB --> Bot: User added
+    Bot -> Bot: Remove user from temporary list
+    Bot -> User: Subscribtion request completed
+    else User exists
+    DB --> Bot: User exists
+    Bot -> Bot: Remove user from temporary list
+    Bot -> User: Subscribtion request denied - user already exists
+    end
+else User is in temporary list
+DB --> Bot: User exists
+Bot -> User: Subscribtion request denied - user already started subscribtion process
+Bot -> User: Choose what to do (cancel subscribtion request, provide location, provide time)
+end
+@enduml

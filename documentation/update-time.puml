@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> Bot: Update time request
+Bot -> DB: Update user time
+alt User exists
+    DB --> Bot: User exists
+    Bot -> User: Update time request completed
+else User does not exist
+    DB --> Bot: User does not exist
+    Bot -> User: Update time request denied - user does not exist
+end
+Bot -> Bot: Remove user from temporary list
+@enduml

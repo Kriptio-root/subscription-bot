@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> Bot: Update location request
+Bot -> DB: Update user location
+alt User exists
+    DB --> Bot: User exists
+    Bot -> User: Update location request completed
+else User does not exist
+    DB --> Bot: User does not exist
+    Bot -> User: Update location request denied - user does not exist
+end
+
+@enduml

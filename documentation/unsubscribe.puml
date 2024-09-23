@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> Bot: Unsubscribe request
+Bot -> DB: Check if user exists
+alt User exists
+    DB --> Bot: User exists
+    Bot -> DB: Remove user from DB
+    DB --> Bot: User removed
+    Bot -> User: Unsubscribe request completed
+else User does not exist
+    DB --> Bot: User does not exist
+    Bot -> User: Unsubscribe request denied - user does not exist
+end
+
+@enduml
